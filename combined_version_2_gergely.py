@@ -232,23 +232,26 @@ class Visualize:
 
 
     def plot_survival_rate(self,survival_values,project_list, success_values):
-        self.fig, self.ax = plt.subplots()        
-        x = project_list
-        y = survival_values
-        y2= success_values
-        self.ax.bar(x, y, color='blue', alpha=0.7, label= 'Survival Probability')
-        self.ax.bar(x, y2, color='red', alpha=0.7, label= 'Success Probability')
-        self.ax.set_xlabel('scenario')
+        self.fig, self.ax = plt.subplots()
+        x = np.arange(len(project_list))  # Set positions for the x-axis
+        width = 0.35  # Width of each bar
+    
+        # Plot side-by-side bars
+        self.ax.bar(x - width/2, survival_values, width, color='blue', alpha=0.7, label='Survival Probability')
+        self.ax.bar(x + width/2, success_values, width, color='red', alpha=0.7, label='Success Probability')
+    
+        self.ax.set_xlabel('Scenario')
         self.ax.set_ylabel('(%)')
         self.ax.set_title('Probability for Each Scenario')
-        self.ax.set_xticks(range(len(project_list)))  # Set positions of the x-ticks to the project names
-        self.ax.set_xticklabels(x)  # Set the x-tick labels to the project names
+        self.ax.set_xticks(x)
+        self.ax.set_xticklabels(project_list)
         self.ax.legend()
+    
         plt.show()
 
-        print(f"scenario x: {x}")
-        print(f"survival rate y: {y}")
-        print(f"success rate y2: {y2}")
+        print(f"scenario x: {project_list}")
+        print(f"survival rate y: {survival_values}")
+        print(f"success rate y2: {success_values}")
 
  
 
